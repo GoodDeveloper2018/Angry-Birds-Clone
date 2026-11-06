@@ -6,17 +6,25 @@ class SlingShot{
             stiffness: 0.04,
             length: 10
         }
-        this.sling1 = loadImage("sprites/sling1.png")
-        this.sling2 = loadImage("sprites/sling2.png")
-        this.sling3 = loadImage("sprites/sling3.png")
+        this.sling1 = getImage("sprites/sling1.png")
+        this.sling2 = getImage("sprites/sling2.png")
+        this.sling3 = getImage("sprites/sling3.png")
         this.pointB = pointB
         this.sling = Constraint.create(options);
     
         World.add(world, this.sling);
     }
 
+    // Puts the next bird on the sling.
+    attach(body){
+        this.sling.bodyA = body;
+    }
+
+    // Returns true if a bird was actually on the sling when it was let go.
     fly(){
+        var hadBird = !!this.sling.bodyA;
         this.sling.bodyA = null;
+        return hadBird;
     }
 
     display(){
